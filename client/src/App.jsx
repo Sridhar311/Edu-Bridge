@@ -25,6 +25,7 @@ import Settings from './pages/Settings';
 import Profile from './pages/Profile';
 import TeacherStudents from './pages/teacher/TeacherStudents';
 import Contact from './pages/Contact';
+import Privacy from './pages/Privacy';
 
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
