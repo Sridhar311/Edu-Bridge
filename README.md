@@ -6,12 +6,8 @@
 
 A modern, full-stack online learning platform where students enroll in courses, teachers upload content, and admins manage the entire ecosystem.
 
-[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite)](https://vitejs.dev/)
-[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?logo=mongodb)](https://www.mongodb.com/)
 
-[Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Branding](#-branding)
+[Features](#-features) • [Tech Stack](#-tech-stack)  • [Branding](#-branding)
 
 </div>
 
@@ -21,7 +17,6 @@ A modern, full-stack online learning platform where students enroll in courses, 
 - **React** - UI framework
 - **Tailwind CSS** - Styling
 - **React Router DOM** - Navigation
-- **Framer Motion** - Animations
 
 ### Backend
 - **Node.js** - Runtime environment
@@ -215,7 +210,6 @@ EduBridge follows a modern, professional design system with consistent branding 
 - **Logo Mark:** Graduation cap icon in brand colors
 - **Brand Colors:** Indigo-600 to Blue-500 gradient
 
-📖 **See [BRANDING.md](./BRANDING.md) for complete design guidelines**
 
 ### Why Early Branding Matters
 
@@ -230,6 +224,8 @@ EduBridge follows a modern, professional design system with consistent branding 
 MIT
 
 ## 👥 Author
-
+Sridhar ->[LinkedIn-http://linkedin.com/in/r-sridhar-5324b52a6/]
+        ->[GIT-https://github.com/Sridhar311]
+        ->[LEETCODE-https://leetcode.com/u/Sridhar_curious/]
 Built with ❤️ for empowering education
 
