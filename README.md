@@ -215,7 +215,6 @@ EduBridge follows a modern, professional design system with consistent branding 
 - **Logo Mark:** Graduation cap icon in brand colors
 - **Brand Colors:** Indigo-600 to Blue-500 gradient
 
-📖 **See [BRANDING.md](./BRANDING.md) for complete design guidelines**
 
 ### Why Early Branding Matters
 
