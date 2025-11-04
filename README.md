@@ -230,6 +230,8 @@ EduBridge follows a modern, professional design system with consistent branding 
 MIT
 
 ## 👥 Author
-
+Sridhar ->[LinkedIn-http://linkedin.com/in/r-sridhar-5324b52a6/]
+        ->[GIT-https://github.com/Sridhar311]
+        ->[LEETCODE-https://leetcode.com/u/Sridhar_curious/]
 Built with ❤️ for empowering education
 
