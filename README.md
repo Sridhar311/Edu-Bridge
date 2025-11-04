@@ -7,7 +7,7 @@
 A modern, full-stack online learning platform where students enroll in courses, teachers upload content, and admins manage the entire ecosystem.
 
 
-[Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Branding](#-branding)
+[Features](#-features) • [Tech Stack](#-tech-stack)  • [Branding](#-branding)
 
 </div>
 
