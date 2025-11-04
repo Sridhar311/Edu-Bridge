@@ -6,10 +6,6 @@
 
 A modern, full-stack online learning platform where students enroll in courses, teachers upload content, and admins manage the entire ecosystem.
 
-[![React](https://img.shields.io/badge/React-18-61DAFB?logo=react)](https://reactjs.org/)
-[![Vite](https://img.shields.io/badge/Vite-5-646CFF?logo=vite)](https://vitejs.dev/)
-[![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js)](https://nodejs.org/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-Mongoose-47A248?logo=mongodb)](https://www.mongodb.com/)
 
 [Features](#-features) • [Tech Stack](#-tech-stack) • [Getting Started](#-getting-started) • [Branding](#-branding)
 
@@ -21,7 +17,6 @@ A modern, full-stack online learning platform where students enroll in courses, 
 - **React** - UI framework
 - **Tailwind CSS** - Styling
 - **React Router DOM** - Navigation
-- **Framer Motion** - Animations
 
 ### Backend
 - **Node.js** - Runtime environment
