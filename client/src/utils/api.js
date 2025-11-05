@@ -3,7 +3,11 @@ import axios from 'axios';
 // Determine API base dynamically
 const inferredApi = (() => {
   const envUrl = import.meta.env.VITE_API_URL;
-  if (envUrl) return envUrl; // explicit override
+  if (envUrl) {
+    // Ensure it ends with /api
+    const noTrail = envUrl.replace(/\/$/, '');
+    return noTrail.endsWith('/api') ? noTrail : `${noTrail}/api`;
+  }
   if (typeof window !== 'undefined') {
     const host = window.location.hostname || '';
     const isLocal = host === 'localhost' || host === '127.0.0.1';
