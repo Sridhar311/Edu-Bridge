@@ -126,7 +126,7 @@ export default function CourseDetail() {
       </div>
 
       <CheckoutModal open={open} onClose={() => setOpen(false)} course={{ ...course, _id: id }} />
-      {/* <FakeCheckoutModal open={openFake} onClose={() => setOpenFake(false)} course={{ ...course, _id: id }} /> */}
+      <FakeCheckoutModal open={openFake} onClose={() => setOpenFake(false)} course={{ ...course, _id: id }} />
     </div>
   );
 }
