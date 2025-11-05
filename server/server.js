@@ -12,8 +12,20 @@ dotenv.config({ path: path.resolve(__dirname, '../.env') });
 const app = express();
 
 // Middleware
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  process.env.CLIENT_URL_2,
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'https://edu-bridge-henna-pi.vercel.app',
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true); // allow non-browser tools
+    const ok = allowedOrigins.some((o) => o === origin);
+    callback(ok ? null : new Error('Not allowed by CORS'), ok);
+  },
   credentials: true,
 }));
 // Razorpay webhook needs raw body for signature verification; register this endpoint BEFORE json parser

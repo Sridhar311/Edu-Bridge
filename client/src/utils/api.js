@@ -1,6 +1,19 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Determine API base dynamically
+const inferredApi = (() => {
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl) return envUrl; // explicit override
+  if (typeof window !== 'undefined') {
+    const host = window.location.hostname || '';
+    const isLocal = host === 'localhost' || host === '127.0.0.1';
+    if (isLocal) return 'http://localhost:5000/api';
+    // Production (e.g., Vercel)
+    return 'https://edu-bridge-yhuf.onrender.com/api';
+  }
+  return 'http://localhost:5000/api';
+})();
+const API_URL = inferredApi;
 
 // Create axios instance
 const api = axios.create({
