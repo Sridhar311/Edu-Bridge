@@ -53,14 +53,14 @@ const Home = () => {
           />
         </div>
 
-        <div className="container mx-auto px-4 py-20 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 py-16 sm:py-20 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             {/* Main Heading */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
+              className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight px-2"
             >
               Empowering Learning
               <br />
@@ -74,7 +74,7 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl mx-auto"
+              className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/90 mb-8 sm:mb-12 max-w-2xl mx-auto px-4"
             >
               Join thousands of learners and unlock your potential with our
               comprehensive courses taught by industry experts.
@@ -85,24 +85,24 @@ const Home = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
-              className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center px-4"
             >
-              <Link to="/courses">
+              <Link to="/courses" className="w-full sm:w-auto">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-white text-indigo-600 rounded-lg font-bold text-lg shadow-2xl hover:bg-gray-100 transition-all"
+                  className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-white text-indigo-600 rounded-xl font-bold text-base sm:text-lg shadow-2xl hover:bg-gray-100 transition-all"
                 >
                   <i className="fas fa-book-open mr-2"></i>
                   Explore Courses
                 </motion.button>
               </Link>
               {!isAuthenticated && (
-                <Link to="/signup?role=teacher">
+                <Link to="/signup?role=teacher" className="w-full sm:w-auto">
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="px-8 py-4 bg-transparent border-2 border-white text-white rounded-lg font-bold text-lg hover:bg-white/10 transition-all"
+                    className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 bg-transparent border-2 border-white text-white rounded-xl font-bold text-base sm:text-lg hover:bg-white/10 transition-all"
                   >
                     <i className="fas fa-chalkboard-teacher mr-2"></i>
                     Join as Teacher
@@ -124,25 +124,25 @@ const Home = () => {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-12 sm:py-16 md:py-20 bg-white">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="text-center mb-10 sm:mb-12 md:mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
               Why Choose EduBridge?
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-4">
               Experience the best in online education with our innovative
               platform
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             {/* Feature 1 */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -207,44 +207,48 @@ const Home = () => {
       </section>
 
       {/* Stats Section (real-time) */}
-      <section className="py-20 bg-gradient-to-r from-indigo-600 to-blue-600">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+      <section className="py-12 sm:py-16 md:py-20 bg-gradient-to-r from-indigo-600 to-blue-600">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6"
             >
-              <div className="text-5xl font-bold text-white mb-2">{stats.students}</div>
-              <div className="text-xl text-white/90">Active Students</div>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-1 sm:mb-2">{stats.students}</div>
+              <div className="text-sm sm:text-base md:text-xl text-white/90">Active Students</div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.1 }}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6"
             >
-              <div className="text-5xl font-bold text-white mb-2">{stats.teachers}</div>
-              <div className="text-xl text-white/90">Expert Instructors</div>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-1 sm:mb-2">{stats.teachers}</div>
+              <div className="text-sm sm:text-base md:text-xl text-white/90">Expert Instructors</div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6"
             >
-              <div className="text-5xl font-bold text-white mb-2">{stats.courses}</div>
-              <div className="text-xl text-white/90">Online Courses</div>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-1 sm:mb-2">{stats.courses}</div>
+              <div className="text-sm sm:text-base md:text-xl text-white/90">Online Courses</div>
             </motion.div>
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-4 sm:p-6"
             >
-              <div className="text-5xl font-bold text-white mb-2">{stats.enrollments}</div>
-              <div className="text-xl text-white/90">Course Enrollments</div>
+              <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-1 sm:mb-2">{stats.enrollments}</div>
+              <div className="text-sm sm:text-base md:text-xl text-white/90">Course Enrollments</div>
             </motion.div>
           </div>
         </div>

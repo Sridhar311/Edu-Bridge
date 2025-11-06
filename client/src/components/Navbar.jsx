@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isAuthenticated, user, logout } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +29,23 @@ const Navbar = () => {
     document.addEventListener('click', handleClickOutside);
     return () => document.removeEventListener('click', handleClickOutside);
   }, [showDropdown]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [mobileMenuOpen]);
 
   const handleLogout = async () => {
     await logout();
@@ -131,8 +150,42 @@ const Navbar = () => {
             )}
           </div>
 
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex items-center space-x-2">
+            {isAuthenticated && (
+              <Link to={getDashboardPath()}>
+                <motion.button
+                  whileTap={{ scale: 0.95 }}
+                  className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <i className="fas fa-tachometer-alt text-gray-700"></i>
+                </motion.button>
+              </Link>
+            )}
+            <motion.button
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
+            >
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <motion.span
+                  animate={mobileMenuOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                  className={`w-full h-0.5 ${scrolled || isAuthenticated ? 'bg-gray-700' : 'bg-white'} transition-colors`}
+                />
+                <motion.span
+                  animate={mobileMenuOpen ? { opacity: 0 } : { opacity: 1 }}
+                  className={`w-full h-0.5 ${scrolled || isAuthenticated ? 'bg-gray-700' : 'bg-white'} transition-colors`}
+                />
+                <motion.span
+                  animate={mobileMenuOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                  className={`w-full h-0.5 ${scrolled || isAuthenticated ? 'bg-gray-700' : 'bg-white'} transition-colors`}
+                />
+              </div>
+            </motion.button>
+          </div>
+
           {/* Auth Section */}
-          <div className="flex items-center space-x-4">
+          <div className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <div className="dropdown-container relative">
                 <motion.button
@@ -247,6 +300,176 @@ const Navbar = () => {
           </div>
         </div>
       </div>
+
+      {/* Mobile Sidebar Menu */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setMobileMenuOpen(false)}
+              className="fixed inset-0 bg-black/50 z-40 md:hidden"
+            />
+
+            {/* Sidebar */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="fixed top-0 right-0 bottom-0 w-80 max-w-[85vw] bg-white shadow-2xl z-50 md:hidden overflow-y-auto"
+            >
+              {/* Header */}
+              <div className="p-6 border-b border-gray-200 bg-gradient-to-br from-primary-50 to-secondary-50">
+                <div className="flex items-center justify-between mb-4">
+                  <h2 className="text-xl font-bold text-gray-900">Menu</h2>
+                  <button
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="p-2 rounded-lg hover:bg-white/50 transition-colors"
+                  >
+                    <i className="fas fa-times text-gray-700"></i>
+                  </button>
+                </div>
+
+                {/* User Profile in Sidebar */}
+                {isAuthenticated && user && (
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <div className="flex items-center space-x-3 mb-3">
+                      <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-secondary-600 rounded-full flex items-center justify-center flex-shrink-0">
+                        <span className="text-white text-lg font-semibold">
+                          {user.name?.charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-semibold text-gray-900 truncate">{user.name}</p>
+                        <p className="text-sm text-gray-600 truncate">{user.email}</p>
+                      </div>
+                    </div>
+                    <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium ${getRoleBadgeColor(user.role)}`}>
+                      {user.role?.charAt(0).toUpperCase() + user.role?.slice(1)}
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              {/* Navigation Links */}
+              <div className="p-4">
+                <div className="space-y-1">
+                  <Link
+                    to="/"
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700"
+                  >
+                    <i className="fas fa-home w-5 text-primary-600"></i>
+                    <span className="font-medium">Home</span>
+                  </Link>
+                  <Link
+                    to="/courses"
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700"
+                  >
+                    <i className="fas fa-book w-5 text-primary-600"></i>
+                    <span className="font-medium">Courses</span>
+                  </Link>
+                  <Link
+                    to="/about"
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700"
+                  >
+                    <i className="fas fa-info-circle w-5 text-primary-600"></i>
+                    <span className="font-medium">About</span>
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700"
+                  >
+                    <i className="fas fa-envelope w-5 text-primary-600"></i>
+                    <span className="font-medium">Contact</span>
+                  </Link>
+                </div>
+
+                {/* Authenticated User Links */}
+                {isAuthenticated && (
+                  <>
+                    <div className="my-4 border-t border-gray-200"></div>
+                    <div className="space-y-1">
+                      <Link
+                        to={getDashboardPath()}
+                        className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700"
+                      >
+                        <i className="fas fa-tachometer-alt w-5 text-primary-600"></i>
+                        <span className="font-medium">Dashboard</span>
+                      </Link>
+                      <Link
+                        to="/profile"
+                        className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700"
+                      >
+                        <i className="fas fa-user w-5 text-primary-600"></i>
+                        <span className="font-medium">Profile</span>
+                      </Link>
+                      <Link
+                        to="/settings"
+                        className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700"
+                      >
+                        <i className="fas fa-cog w-5 text-primary-600"></i>
+                        <span className="font-medium">Settings</span>
+                      </Link>
+                      {user?.role === 'admin' && (
+                        <Link
+                          to="/admin/dashboard"
+                          className="flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-gray-50 transition-colors text-gray-700"
+                        >
+                          <i className="fas fa-shield-alt w-5 text-primary-600"></i>
+                          <span className="font-medium">Admin Panel</span>
+                        </Link>
+                      )}
+                    </div>
+                    <div className="my-4 border-t border-gray-200"></div>
+                    <button
+                      onClick={handleLogout}
+                      className="w-full flex items-center space-x-3 px-4 py-3 rounded-lg hover:bg-red-50 transition-colors text-red-600"
+                    >
+                      <i className="fas fa-sign-out-alt w-5"></i>
+                      <span className="font-medium">Logout</span>
+                    </button>
+                  </>
+                )}
+
+                {/* Guest Links */}
+                {!isAuthenticated && (
+                  <>
+                    <div className="my-4 border-t border-gray-200"></div>
+                    <div className="space-y-2">
+                      <Link to="/login" className="block">
+                        <button className="w-full px-4 py-3 rounded-lg border-2 border-primary-600 text-primary-600 font-semibold hover:bg-primary-50 transition-colors">
+                          Login
+                        </button>
+                      </Link>
+                      <Link to="/signup" className="block">
+                        <button className="w-full px-4 py-3 rounded-lg bg-gradient-to-r from-primary-600 to-secondary-600 text-white font-semibold hover:from-primary-700 hover:to-secondary-700 transition-all shadow-lg">
+                          Sign Up
+                        </button>
+                      </Link>
+                    </div>
+                  </>
+                )}
+              </div>
+
+              {/* Footer Links */}
+              <div className="p-4 border-t border-gray-200 bg-gray-50">
+                <div className="space-y-2 text-sm">
+                  <Link to="/terms" className="block text-gray-600 hover:text-primary-600 transition-colors">
+                    Terms of Service
+                  </Link>
+                  <Link to="/privacy" className="block text-gray-600 hover:text-primary-600 transition-colors">
+                    Privacy Policy
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };
